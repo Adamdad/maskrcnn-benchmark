@@ -1,5 +1,9 @@
 # Faster R-CNN and Mask R-CNN in PyTorch 1.0
 
+## What I did
+
+I unable the code for NMS and output all the boundingboxes (confidence>0)
+
 **maskrcnn-benchmark has been deprecated. Please see [detectron2](https://github.com/facebookresearch/detectron2), which includes implementations for all models in maskrcnn-benchmark**
 
 This project aims at providing the necessary building blocks for easily

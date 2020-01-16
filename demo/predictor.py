@@ -217,7 +217,7 @@ class COCODemo(object):
             result = self.overlay_mask(result, top_predictions)
         if self.cfg.MODEL.KEYPOINT_ON:
             result = self.overlay_keypoints(result, top_predictions)
-        result = self.overlay_class_names(result, top_predictions)
+        # result = self.overlay_class_names(result, top_predictions)
 
         return result
 
@@ -301,12 +301,13 @@ class COCODemo(object):
 
         colors = self.compute_colors_for_labels(labels).tolist()
 
-        for box, color in zip(boxes, colors):
-            box = box.to(torch.int64)
-            top_left, bottom_right = box[:2].tolist(), box[2:].tolist()
-            image = cv2.rectangle(
-                image, tuple(top_left), tuple(bottom_right), tuple(color), 1
-            )
+        for box, color,label in zip(boxes, colors,labels):
+            if label in [1,3]:
+                box = box.to(torch.int64)
+                top_left, bottom_right = box[:2].tolist(), box[2:].tolist()
+                image = cv2.rectangle(
+                    image, tuple(top_left), tuple(bottom_right), tuple(color), 1
+                )
 
         return image
 

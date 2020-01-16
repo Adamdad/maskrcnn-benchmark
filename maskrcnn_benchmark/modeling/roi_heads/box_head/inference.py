@@ -20,7 +20,7 @@ class PostProcessor(nn.Module):
         self,
         score_thresh=0.05,
         nms=0.5,
-        detections_per_img=100,
+        detections_per_img=2000,
         box_coder=None,
         cls_agnostic_bbox_reg=False,
         bbox_aug_enabled=False
@@ -125,9 +125,9 @@ class PostProcessor(nn.Module):
             boxes_j = boxes[inds, j * 4 : (j + 1) * 4]
             boxlist_for_class = BoxList(boxes_j, boxlist.size, mode="xyxy")
             boxlist_for_class.add_field("scores", scores_j)
-            boxlist_for_class = boxlist_nms(
-                boxlist_for_class, self.nms
-            )
+            # boxlist_for_class = boxlist_nms(
+            #     boxlist_for_class, self.nms
+            # )
             num_labels = len(boxlist_for_class)
             boxlist_for_class.add_field(
                 "labels", torch.full((num_labels,), j, dtype=torch.int64, device=device)
