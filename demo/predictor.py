@@ -302,7 +302,8 @@ class COCODemo(object):
         colors = self.compute_colors_for_labels(labels).tolist()
 
         for box, color,label in zip(boxes, colors,labels):
-            if label in [1,3]:
+            # Only show person
+            if label in [1]:
                 box = box.to(torch.int64)
                 top_left, bottom_right = box[:2].tolist(), box[2:].tolist()
                 image = cv2.rectangle(
