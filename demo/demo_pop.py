@@ -205,6 +205,5 @@ for fn in os.listdir(file_dir)[:1]:
     image = load(img_file)
 
     predictions = coco_demo.run_on_opencv_image(image)
-    print(type(predictions))
     # imshow(predictions)
-    # cv2.imwrite('test.jpg',predictions)
+    cv2.imwrite('test.jpg',predictions)
