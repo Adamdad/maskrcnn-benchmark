@@ -198,7 +198,7 @@ coco_demo = COCODemo(
     confidence_threshold=0,
 )
 print("Mask RCNN model created")
-file_dir = '~/data/COCO/train2017'
+file_dir = '/data/COCO/train2017'
 cand_list=[]
 for fn in tqdm(os.listdir(file_dir)):
     img_file = os.path.join(file_dir,fn)
