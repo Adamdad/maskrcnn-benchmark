@@ -6,6 +6,7 @@ from PIL import Image
 import numpy as np
 import os
 from tqdm import tqdm
+import cv2
 import matplotlib.pyplot as plt
 import matplotlib.pylab as pylab
 # this makes our figures bigger
@@ -203,4 +204,4 @@ for fn in os.listdir(file_dir)[:10]:
     image = load(img_file)
 
     predictions = coco_demo.run_on_opencv_image(image)
-    imshow(predictions)
+    cv2.imwrite('test.jpg',predictions)
