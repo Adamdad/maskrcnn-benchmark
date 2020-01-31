@@ -200,10 +200,11 @@ coco_demo = COCODemo(
 print("Mask RCNN model created")
 file_dir = '../data'
 
-for fn in os.listdir(file_dir)[:10]:
+for fn in os.listdir(file_dir)[:1]:
     img_file = os.path.join(file_dir,fn)
     image = load(img_file)
 
     predictions = coco_demo.run_on_opencv_image(image)
-    print(predictions)
+    print(type(predictions))
+    # imshow(predictions)
     # cv2.imwrite('test.jpg',predictions)
