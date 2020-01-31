@@ -196,7 +196,7 @@ coco_demo = COCODemo(
     min_image_size=800,
     confidence_threshold=0,
 )
-file_dir = 'E:\Matlab2019b\POP\popValImages\popValImages'
+file_dir = '../data'
 
 for fn in os.listdir(file_dir)[:10]:
     img_file = os.path.join(file_dir,fn)
