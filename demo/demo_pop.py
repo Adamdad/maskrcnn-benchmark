@@ -198,12 +198,34 @@ coco_demo = COCODemo(
     confidence_threshold=0,
 )
 print("Mask RCNN model created")
-file_dir = '../data'
-
-for fn in os.listdir(file_dir)[:1]:
+file_dir = '~/data/COCO/train2017'
+cand_list=[]
+for fn in tqdm(os.listdir(file_dir)):
     img_file = os.path.join(file_dir,fn)
+    # print(img_file)
     image = load(img_file)
-
-    predictions = coco_demo.run_on_opencv_image(image)
-    # imshow(predictions)
-    cv2.imwrite('test.jpg',predictions)
+    predictions = coco_demo.compute_prediction(image)
+    predictions = coco_demo.select_top_predictions(predictions)
+    boxes = predictions.bbox
+    scores = predictions.get_field("scores")
+    label = predictions.get_field("labels")
+    cand_dict_list = []
+    # only select human
+    for j in [1]:
+        cls_index = np.where(label==j)
+        scores_class = scores[cls_index]
+        boxes_class = boxes[cls_index]
+        candidates = nms_candidate(boxes_class, scores_class, 0.33)
+        for cand in candidates:
+            boxlist_for_cand = predictions[cls_index[0][cand]]
+            score_for_cand = np.array(boxlist_for_cand.get_field("scores"))
+            boxes_for_cand = np.array(boxlist_for_cand.bbox)
+            cand_dict = {
+                         "conf":score_for_cand.T,
+                         "bbox":boxes_for_cand,
+                         "p":np.max(score_for_cand),
+                         "ObjType":j
+                        }
+            cand_dict_list.append(cand_dict)
+    cand_list.append(np.array(cand_dict_list))
+io.savemat('candidate.mat', mdict={'candidate': np.array(cand_list)})
