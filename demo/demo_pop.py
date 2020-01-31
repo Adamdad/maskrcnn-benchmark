@@ -197,6 +197,7 @@ coco_demo = COCODemo(
     min_image_size=800,
     confidence_threshold=0,
 )
+print("Mask RCNN model created")
 file_dir = '../data'
 
 for fn in os.listdir(file_dir)[:10]:
